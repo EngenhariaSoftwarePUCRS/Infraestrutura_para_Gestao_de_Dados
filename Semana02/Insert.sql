@@ -45,6 +45,7 @@ INSERT INTO TIME (id, id_pais, descricao) VALUES (3, 1, 'USA Athletics Team');
 INSERT INTO TIME (id, id_pais, descricao) VALUES (4, 7, 'Australia Swimming Team');
 INSERT INTO TIME (id, id_pais, descricao) VALUES (5, 4, 'China Swimming Team');
 INSERT INTO TIME (id, id_pais, descricao) VALUES (6, 8, 'France Swimming Team');
+INSERT INTO TIME (id, id_pais, descricao) VALUES (7, 2, 'Brasil Athletics Team');
 
 INSERT INTO TIME_ATLETA (id_time, id_atleta, numero) VALUES (1, 1, 1); -- Rebeca Andrade
 INSERT INTO TIME_ATLETA (id_time, id_atleta, numero) VALUES (1, 3, 2); -- Flavia Saraiva
@@ -55,7 +56,7 @@ INSERT INTO TIME_ATLETA (id_time, id_atleta, numero) VALUES (5, 7, 6); -- Zhang 
 INSERT INTO TIME_ATLETA (id_time, id_atleta, numero) VALUES (6, 8, 7); -- Léon Marchand
 INSERT INTO TIME_ATLETA (id_time, id_atleta, numero) VALUES (1, 4, 8); -- Rafaela Silva
 INSERT INTO TIME_ATLETA (id_time, id_atleta, numero) VALUES (1, 9, 5);  -- Arthur Nory 
-INSERT INTO TIME_ATLETA (id_time, id_atleta, numero) VALUES (3, 10, 10); -- Thiago Braz 
+INSERT INTO TIME_ATLETA (id_time, id_atleta, numero) VALUES (7, 10, 10); -- Thiago Braz 
 INSERT INTO TIME_ATLETA (id_time, id_atleta, numero) VALUES (3, 11, 7); -- Allyson Felix 
 INSERT INTO TIME_ATLETA (id_time, id_atleta, numero) VALUES (4, 12, 6); -- Caeleb Dressel
 INSERT INTO TIME_ATLETA (id_time, id_atleta, numero) VALUES (5, 13, 8); -- Chen Long 
@@ -94,7 +95,7 @@ INSERT INTO MEDALHA (id, metal, id_evento, id_time, id_atleta) VALUES (8, 'O', 9
 -- Arthur Nory - Bronze em Ginástica Artística - Floor
 INSERT INTO MEDALHA (id, metal, id_evento, id_time, id_atleta) VALUES (9, 'B', 3, 1, 9);
 -- Thiago Braz - Prata em Atletismo - Salto com Vara
-INSERT INTO MEDALHA (id, metal, id_evento, id_time, id_atleta) VALUES (10, 'P', 6, 3, 10);
+INSERT INTO MEDALHA (id, metal, id_evento, id_time, id_atleta) VALUES (10, 'P', 6, 7, 10);
 -- Allyson Felix - Prata em Atletismo - 400m
 INSERT INTO MEDALHA (id, metal, id_evento, id_time, id_atleta) VALUES (11, 'P', 6, 3, 11);
 -- Caeleb Dressel - Bronze em Natação - 100m Livre
