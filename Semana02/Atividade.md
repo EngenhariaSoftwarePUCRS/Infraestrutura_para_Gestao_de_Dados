@@ -14,5 +14,5 @@
 **05**. Listar os países que não tiveram nenhum atleta disputando nos eventos desta Olimpíada.
 06. Listar o total de medalhas por país e por gênero (masculino e feminino).
 07. Listar o total de medalhas de cada tipo (ouro, prata, bronze) por país.
-08. Listar os atletas que competiram em mais de um evento.
-09. Encontrar o país com o maior número de medalhas de prata.
+08. Listar os times que competiram em mais de um evento.
+09. Encontrar o país com o maior número de medalhas de bronze.
