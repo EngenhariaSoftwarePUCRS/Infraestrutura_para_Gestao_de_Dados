@@ -1,0 +1,1 @@
+-- 08. Listar os times que competiram em mais de um evento.

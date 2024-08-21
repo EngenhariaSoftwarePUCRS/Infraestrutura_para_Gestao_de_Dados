@@ -1,0 +1,1 @@
+-- 06. Listar o total de medalhas por país e por gênero (masculino e feminino).
