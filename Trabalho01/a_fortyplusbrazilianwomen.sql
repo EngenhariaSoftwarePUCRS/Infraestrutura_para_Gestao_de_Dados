@@ -1,4 +1,4 @@
--- Listar o nome completo (primeiro nome + último nome), a idade e a cidade de todos os passageiros do sexo feminino (sex='w') com mais de 40 anos, residentes no país 'BRAZIL'. [resposta sugerida = 141 linhas]
+-- Listar o nome completo (primeiro nome + ultimo nome), a idade e a cidade de todos os passageiros do sexo feminino (sex='w') com mais de 40 anos, residentes no pais 'BRAZIL'. [resposta sugerida = 141 linhas]
 
 SELECT
     p.firstname || ' ' || p.lastname AS fullname
