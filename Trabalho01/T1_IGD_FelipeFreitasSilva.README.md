@@ -1,0 +1,2 @@
+Você deverá fazer uma reflexão crítica sobre o experimento e os resultados.
+Para tanto, apresente um breve texto (mínimo 15 linhas, máximo 30 linhas) refletindo acerca do experimento, onde, nas suas palavras, seja possível demonstrar sua compreensão dos aspectos mais relevantes da escolha e adoção das diferentes estratégias de otimização. Adicione quaisquer outras observações que considerar pertinentes.
