@@ -19,7 +19,7 @@ CREATE TABLE voos_por_aviao_id_e_dia (
     airplane_id INT,
     day_of_week TEXT,
     flight_no TEXT,
-    departure TIME,
-    arrival TIME,
-    PRIMARY KEY (airplane_id, (day_of_week, flight_no))
+    departure TIMESTAMP,
+    arrival TIMESTAMP,
+    PRIMARY KEY ((airplane_id), day_of_week, flight_no)
 );

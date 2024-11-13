@@ -30,5 +30,5 @@ INSERT INTO companias_aereas.compania_aerea_por_nome (airline_name, airline_id, 
 INSERT INTO companias_aereas.compania_aerea_por_nome (airline_name, airline_id, iata) VALUES ('Jerusalem Airlines', 52, 'JE');
 INSERT INTO companias_aereas.compania_aerea_por_nome (airline_name, airline_id, iata) VALUES ('Kyrgyzstan Airlines', 59, 'KY');
 INSERT INTO companias_aereas.compania_aerea_por_nome (airline_name, airline_id, iata) VALUES ('Moldova Airlines', 67, 'MO');
-INSERT INTO companias_aereas.compania_aerea_por_nome (airline_name, airline_id, iata) VALUES ('Western Samoa Airlin', 109, 'WE');
+INSERT INTO companias_aereas.compania_aerea_por_nome (airline_name, airline_id, iata) VALUES ('Western Samoa Airlin', 109, 'WE');
 */

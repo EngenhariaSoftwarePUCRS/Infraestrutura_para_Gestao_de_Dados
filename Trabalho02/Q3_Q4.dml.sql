@@ -55,5 +55,5 @@ INSERT INTO avioes.voos_por_aviao_id_e_dia (airplane_id, day_of_week, flight_no,
 INSERT INTO avioes.voos_por_aviao_id_e_dia (airplane_id, day_of_week, flight_no, departure, arrival) VALUES (409, 'Monday Tuesday Wednesday Sunday ', '639726', '2020-12-02 06:27:44', '2023-05-19 00:45:00');
 INSERT INTO avioes.voos_por_aviao_id_e_dia (airplane_id, day_of_week, flight_no, departure, arrival) VALUES (409, 'Monday Wednesday Thursday Friday Saturday ', '639726', '2020-12-02 06:27:44', '2023-05-19 00:45:00');
 INSERT INTO avioes.voos_por_aviao_id_e_dia (airplane_id, day_of_week, flight_no, departure, arrival) VALUES (410, 'Monday Tuesday Wednesday Thursday ', '639772', '2023-08-29 18:49:50', '2023-01-19 10:32:00');
-INSERT INTO avioes.voos_por_aviao_id_e_dia (airplane_id, day_of_week, flight_no, departure, arrival) VALUES (410, 'Tuesday Friday Saturday ', '385751', '2021-10-30 20:01:55', '2023-05-19 13:28:00');
+INSERT INTO avioes.voos_por_aviao_id_e_dia (airplane_id, day_of_week, flight_no, departure, arrival) VALUES (410, 'Tuesday Friday Saturday ', '385751', '2021-10-30 20:01:55', '2023-05-19 13:28:00');
 */
