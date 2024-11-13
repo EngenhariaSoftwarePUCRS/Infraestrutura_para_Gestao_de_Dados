@@ -1,10 +1,10 @@
 SELECT DISTINCT
     'INSERT INTO passageiros.passageiros_por_sobrenome (lastname, passenger_id, firstname) VALUES (' ||
     '''' || TRIM(lastname) || ''', ' ||
-    passengerId || ', ' ||
+    passenger_id || ', ' ||
     '''' || TRIM(firstname) || ''');'
 FROM
-    ACAMPOS.AIR_PASSENGER passenger
+    ACAMPOS.AIR_PASSENGERS
 ;
 
 SELECT DISTINCT
@@ -14,9 +14,9 @@ SELECT DISTINCT
     '''' || TRIM(passengerDetails.country) || ''', ' ||
     '''' || TRIM(booking.seat) || ''');'
 FROM
-    ACAMPOS.AIR_PASSENGER passenger
-        JOIN ACAMPOS.AIR_PASSENGERS_DETAILS passangerDetails
-            ON passenger.passenger_id = passangerDetails.passenger_id
+    ACAMPOS.AIR_PASSENGERS passenger
+        JOIN ACAMPOS.AIR_PASSENGERS_DETAILS passengerDetails
+            ON passenger.passenger_id = passengerDetails.passenger_id
         JOIN ACAMPOS.AIR_BOOKINGS booking
             ON passenger.passenger_id = booking.passenger_id
 ;
