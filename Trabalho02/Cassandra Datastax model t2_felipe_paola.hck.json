@@ -1,0 +1,977 @@
+{
+    "modelName": "t2_felipe_paola",
+    "collections": [
+        {
+            "collectionName": "compania_aerea_por_nome",
+            "type": "object",
+            "properties": [
+                {
+                    "name": "airline_id",
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "exclusiveMinimum": false,
+                    "exclusiveMaximum": false,
+                    "primaryKey": false,
+                    "mode": "integer",
+                    "childType": "numeric",
+                    "type": "numeric",
+                    "compositeKey": [
+                        "compositePartitionKey",
+                        "compositeClusteringKey"
+                    ],
+                    "required": true,
+                    "GUID": "e7f25007-37f7-45dc-8dc4-9c928e60618f",
+                    "error": {}
+                },
+                {
+                    "name": "iata",
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "primaryKey": false,
+                    "mode": "text",
+                    "subtype": "string",
+                    "childType": "char",
+                    "type": "string",
+                    "GUID": "a0a98101-2c6c-443f-847f-e9a8c53cb90b",
+                    "compositeKey": [
+                        "compositePartitionKey",
+                        "compositeClusteringKey"
+                    ],
+                    "required": true,
+                    "error": {}
+                },
+                {
+                    "name": "airline_name",
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "primaryKey": true,
+                    "mode": "text",
+                    "subtype": "string",
+                    "childType": "char",
+                    "type": "string",
+                    "compositeKey": [
+                        "compositePartitionKey",
+                        "compositeClusteringKey"
+                    ],
+                    "GUID": "5930081c-61f6-4d6b-95e2-2d9b48405b2c",
+                    "required": true,
+                    "error": {},
+                    "compositePartitionKey": true
+                }
+            ],
+            "definitions": {
+                "type": "definitions",
+                "properties": [],
+                "GUID": "f3052c9b-409f-402c-bba2-af40d6ba41ce"
+            },
+            "isActivated": true,
+            "additionalProperties": false,
+            "collectionUsers": [],
+            "tableIfNotExist": false,
+            "searchIndexIfNotExist": false,
+            "GUID": "fc856b3f-5f76-408a-b7f6-ec56af438abf",
+            "bucketId": "4089732b-2fb8-4b06-937c-da848b749c6e",
+            "compositePartitionKey": [
+                {
+                    "keyId": "5930081c-61f6-4d6b-95e2-2d9b48405b2c"
+                }
+            ]
+        },
+        {
+            "collectionName": "compania_aerea_por_iata",
+            "type": "object",
+            "properties": [
+                {
+                    "name": "iata",
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "primaryKey": true,
+                    "mode": "text",
+                    "subtype": "string",
+                    "childType": "char",
+                    "type": "string",
+                    "compositeKey": [
+                        "compositePartitionKey",
+                        "compositeClusteringKey"
+                    ],
+                    "GUID": "b13842e5-b19b-4ceb-8984-9dd91e90cb1a",
+                    "error": {},
+                    "compositePartitionKey": true,
+                    "required": true
+                },
+                {
+                    "name": "name",
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "primaryKey": false,
+                    "mode": "text",
+                    "subtype": "string",
+                    "childType": "char",
+                    "type": "string",
+                    "compositeKey": [
+                        "compositePartitionKey",
+                        "compositeClusteringKey"
+                    ],
+                    "GUID": "7a809f69-83d8-4e02-9a76-a8d39fcfa687",
+                    "error": {}
+                },
+                {
+                    "name": "city",
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "primaryKey": false,
+                    "mode": "text",
+                    "subtype": "string",
+                    "childType": "char",
+                    "type": "string",
+                    "compositeKey": [
+                        "compositePartitionKey",
+                        "compositeClusteringKey"
+                    ],
+                    "GUID": "59eecaec-f814-4357-93b9-807f44525542",
+                    "error": {}
+                }
+            ],
+            "definitions": {
+                "type": "definitions",
+                "properties": [],
+                "GUID": "341afc36-1ded-42d0-b1c2-281c18b4afbc"
+            },
+            "isActivated": true,
+            "additionalProperties": false,
+            "collectionUsers": [],
+            "tableIfNotExist": false,
+            "searchIndexIfNotExist": false,
+            "GUID": "fbfc7781-5802-4312-b415-61d12f5d8f81",
+            "bucketId": "4089732b-2fb8-4b06-937c-da848b749c6e",
+            "hackoladeMeta": {},
+            "compositePartitionKey": [
+                {
+                    "keyId": "b13842e5-b19b-4ceb-8984-9dd91e90cb1a"
+                }
+            ]
+        },
+        {
+            "collectionName": "avioes_por_capacidade",
+            "type": "object",
+            "properties": [
+                {
+                    "name": "capacity",
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "exclusiveMinimum": false,
+                    "exclusiveMaximum": false,
+                    "primaryKey": true,
+                    "mode": "integer",
+                    "childType": "numeric",
+                    "type": "numeric",
+                    "compositeKey": [
+                        "compositePartitionKey",
+                        "compositeClusteringKey"
+                    ],
+                    "compositePartitionKey": true,
+                    "error": {},
+                    "required": true,
+                    "GUID": "3dbddab6-cf36-4156-ad87-d20e5828c6e6",
+                    "foreignCollection": "",
+                    "foreignField": []
+                },
+                {
+                    "name": "airplane_id",
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "exclusiveMinimum": false,
+                    "exclusiveMaximum": false,
+                    "primaryKey": true,
+                    "mode": "integer",
+                    "childType": "numeric",
+                    "type": "numeric",
+                    "compositeKey": [
+                        "compositePartitionKey",
+                        "compositeClusteringKey"
+                    ],
+                    "error": {},
+                    "GUID": "49e22c9c-b0ea-4a04-b1e2-6df6cf073831",
+                    "foreignCollection": "",
+                    "foreignField": [],
+                    "compositeClusteringKey": true,
+                    "required": true
+                },
+                {
+                    "name": "airplane_type",
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "primaryKey": false,
+                    "mode": "text",
+                    "subtype": "string",
+                    "childType": "char",
+                    "type": "string",
+                    "compositeKey": [
+                        "compositePartitionKey",
+                        "compositeClusteringKey"
+                    ],
+                    "GUID": "07ffc197-b788-44df-b445-d87d35af0a6d",
+                    "error": {},
+                    "foreignCollection": "",
+                    "foreignField": []
+                }
+            ],
+            "definitions": {
+                "type": "definitions",
+                "properties": [],
+                "GUID": "3e963557-c7d5-4484-bbc8-586c7a02d61a"
+            },
+            "isActivated": true,
+            "additionalProperties": false,
+            "collectionUsers": [],
+            "tableIfNotExist": false,
+            "searchIndexIfNotExist": false,
+            "GUID": "2a45cdc5-ae00-4a1c-847c-8c2909a44ec8",
+            "bucketId": "b972abe7-d2e4-45c6-9f6e-a8c7ba2654af",
+            "compositePartitionKey": [
+                {
+                    "keyId": "3dbddab6-cf36-4156-ad87-d20e5828c6e6"
+                }
+            ],
+            "compositeClusteringKey": [
+                {
+                    "keyId": "49e22c9c-b0ea-4a04-b1e2-6df6cf073831",
+                    "type": "ascending"
+                }
+            ]
+        },
+        {
+            "collectionName": "voos_por_aviao_id_e_dia",
+            "type": "object",
+            "properties": [
+                {
+                    "name": "airplane_id",
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "exclusiveMinimum": false,
+                    "exclusiveMaximum": false,
+                    "primaryKey": true,
+                    "mode": "integer",
+                    "childType": "numeric",
+                    "type": "numeric",
+                    "compositeKey": [
+                        "compositePartitionKey",
+                        "compositeClusteringKey"
+                    ],
+                    "error": {},
+                    "GUID": "776c8f2a-41c2-43b8-92e2-8cd7260f0956",
+                    "compositePartitionKey": true,
+                    "required": true,
+                    "foreignCollection": "",
+                    "foreignField": []
+                },
+                {
+                    "name": "flight_no",
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "exclusiveMinimum": false,
+                    "exclusiveMaximum": false,
+                    "primaryKey": true,
+                    "mode": "integer",
+                    "childType": "numeric",
+                    "type": "numeric",
+                    "compositeKey": [
+                        "compositePartitionKey",
+                        "compositeClusteringKey"
+                    ],
+                    "error": {},
+                    "GUID": "b04be194-7791-41fb-b8cd-522922e2cdee",
+                    "foreignCollection": "",
+                    "foreignField": [],
+                    "required": true,
+                    "compositeClusteringKey": true
+                },
+                {
+                    "name": "departure",
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "primaryKey": false,
+                    "childType": "date",
+                    "type": "string",
+                    "compositeKey": [
+                        "compositePartitionKey",
+                        "compositeClusteringKey"
+                    ],
+                    "compositePartitionKey": false,
+                    "compositeClusteringKey": false,
+                    "error": {},
+                    "GUID": "73888616-c934-4f4b-9f62-bc174ffbffd5",
+                    "foreignCollection": "",
+                    "foreignField": []
+                },
+                {
+                    "name": "arrival",
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "primaryKey": false,
+                    "childType": "date",
+                    "type": "string",
+                    "compositeKey": [
+                        "compositePartitionKey",
+                        "compositeClusteringKey"
+                    ],
+                    "compositePartitionKey": false,
+                    "compositeClusteringKey": false,
+                    "error": {},
+                    "GUID": "f529863d-5636-49b6-8a89-00f57250da50",
+                    "foreignCollection": "",
+                    "foreignField": []
+                },
+                {
+                    "name": "day_of_week",
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "primaryKey": true,
+                    "mode": "text",
+                    "subtype": "string",
+                    "childType": "char",
+                    "type": "string",
+                    "compositeKey": [
+                        "compositePartitionKey",
+                        "compositeClusteringKey"
+                    ],
+                    "GUID": "03b6fbf2-c589-403a-94a4-c466ae6539db",
+                    "error": {},
+                    "foreignCollection": "",
+                    "foreignField": [],
+                    "required": true,
+                    "compositeClusteringKey": true
+                }
+            ],
+            "definitions": {
+                "type": "definitions",
+                "properties": [],
+                "GUID": "de051594-1401-4705-9809-20163f4a1278"
+            },
+            "isActivated": true,
+            "additionalProperties": false,
+            "collectionUsers": [],
+            "tableIfNotExist": false,
+            "searchIndexIfNotExist": false,
+            "GUID": "d2373372-143b-428c-baad-2af5187f614c",
+            "bucketId": "b972abe7-d2e4-45c6-9f6e-a8c7ba2654af",
+            "compositePartitionKey": [
+                {
+                    "keyId": "776c8f2a-41c2-43b8-92e2-8cd7260f0956"
+                }
+            ],
+            "compositeClusteringKey": [
+                {
+                    "keyId": "03b6fbf2-c589-403a-94a4-c466ae6539db",
+                    "type": "ascending"
+                },
+                {
+                    "keyId": "b04be194-7791-41fb-b8cd-522922e2cdee",
+                    "type": "ascending"
+                }
+            ]
+        },
+        {
+            "collectionName": "detalhes_passageiros_por_id",
+            "type": "object",
+            "properties": [
+                {
+                    "name": "passenger_id",
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "exclusiveMinimum": false,
+                    "exclusiveMaximum": false,
+                    "primaryKey": true,
+                    "mode": "integer",
+                    "childType": "numeric",
+                    "type": "numeric",
+                    "compositeKey": [
+                        "compositePartitionKey",
+                        "compositeClusteringKey"
+                    ],
+                    "compositePartitionKey": true,
+                    "error": {},
+                    "required": true,
+                    "GUID": "de7f84a6-29e5-4422-bcc4-f1bcdfc4615e",
+                    "foreignCollection": "",
+                    "foreignField": []
+                },
+                {
+                    "name": "sex",
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "primaryKey": false,
+                    "mode": "text",
+                    "subtype": "string",
+                    "childType": "char",
+                    "type": "string",
+                    "compositeKey": [
+                        "compositePartitionKey",
+                        "compositeClusteringKey"
+                    ],
+                    "GUID": "08ff4fc5-3630-4414-9ec2-093930dc45fd",
+                    "error": {},
+                    "foreignCollection": "",
+                    "foreignField": []
+                },
+                {
+                    "name": "country",
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "primaryKey": false,
+                    "mode": "text",
+                    "subtype": "string",
+                    "childType": "char",
+                    "type": "string",
+                    "compositeKey": [
+                        "compositePartitionKey",
+                        "compositeClusteringKey"
+                    ],
+                    "GUID": "ce74275e-bb19-40ec-97bf-4124c73a1aa0",
+                    "error": {},
+                    "foreignCollection": "",
+                    "foreignField": []
+                },
+                {
+                    "name": "seat_no",
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "exclusiveMinimum": false,
+                    "exclusiveMaximum": false,
+                    "primaryKey": false,
+                    "mode": "integer",
+                    "childType": "numeric",
+                    "type": "numeric",
+                    "compositeKey": [
+                        "compositePartitionKey",
+                        "compositeClusteringKey"
+                    ],
+                    "compositePartitionKey": false,
+                    "compositeClusteringKey": false,
+                    "error": {},
+                    "GUID": "19c9abb5-efa5-488e-b16a-235bcae606a1",
+                    "foreignCollection": "",
+                    "foreignField": []
+                }
+            ],
+            "definitions": {
+                "type": "definitions",
+                "properties": [],
+                "GUID": "40011f58-c65a-427b-b43d-d08351a96fdf"
+            },
+            "isActivated": true,
+            "additionalProperties": false,
+            "collectionUsers": [],
+            "tableIfNotExist": false,
+            "searchIndexIfNotExist": false,
+            "GUID": "6dd4e18b-952d-411c-8e43-576ed6cc66e6",
+            "bucketId": "bac8be18-910a-44cf-9075-18ec173b2944",
+            "compositePartitionKey": [
+                {
+                    "keyId": "de7f84a6-29e5-4422-bcc4-f1bcdfc4615e"
+                }
+            ]
+        },
+        {
+            "collectionName": "passageiros_por_sobrenome",
+            "type": "object",
+            "properties": [
+                {
+                    "name": "lastname",
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "primaryKey": true,
+                    "mode": "text",
+                    "subtype": "string",
+                    "childType": "char",
+                    "type": "string",
+                    "compositeKey": [
+                        "compositePartitionKey",
+                        "compositeClusteringKey"
+                    ],
+                    "GUID": "7ab187cd-2e6a-4ded-b500-6ebdd18573ff",
+                    "error": {},
+                    "compositePartitionKey": true,
+                    "required": true,
+                    "foreignCollection": "",
+                    "foreignField": []
+                },
+                {
+                    "name": "passenger_id",
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "exclusiveMinimum": false,
+                    "exclusiveMaximum": false,
+                    "primaryKey": true,
+                    "mode": "integer",
+                    "childType": "numeric",
+                    "type": "numeric",
+                    "compositeKey": [
+                        "compositePartitionKey",
+                        "compositeClusteringKey"
+                    ],
+                    "error": {},
+                    "GUID": "d4c37282-9ba8-490e-a283-0ce330427339",
+                    "foreignCollection": "",
+                    "foreignField": [],
+                    "compositeClusteringKey": true,
+                    "required": true
+                },
+                {
+                    "name": "firstname",
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "primaryKey": false,
+                    "mode": "text",
+                    "subtype": "string",
+                    "childType": "char",
+                    "type": "string",
+                    "compositeKey": [
+                        "compositePartitionKey",
+                        "compositeClusteringKey"
+                    ],
+                    "GUID": "fb5920f3-23e8-4dfa-a3ce-aefe9f7b1472",
+                    "error": {},
+                    "foreignCollection": "",
+                    "foreignField": []
+                }
+            ],
+            "definitions": {
+                "type": "definitions",
+                "properties": [],
+                "GUID": "c5a72291-eb7f-41de-a5a4-54df141a76b3"
+            },
+            "isActivated": true,
+            "additionalProperties": false,
+            "collectionUsers": [],
+            "tableIfNotExist": false,
+            "searchIndexIfNotExist": false,
+            "GUID": "b03ec0cb-81cf-46a6-830a-8db61f18c8d9",
+            "bucketId": "bac8be18-910a-44cf-9075-18ec173b2944",
+            "compositePartitionKey": [
+                {
+                    "keyId": "7ab187cd-2e6a-4ded-b500-6ebdd18573ff"
+                }
+            ],
+            "compositeClusteringKey": [
+                {
+                    "keyId": "d4c37282-9ba8-490e-a283-0ce330427339",
+                    "type": "ascending"
+                }
+            ]
+        }
+    ],
+    "buckets": [
+        {
+            "name": "companias_areas",
+            "type": "bucket",
+            "collectionIds": [
+                "fc856b3f-5f76-408a-b7f6-ec56af438abf",
+                "fbfc7781-5802-4312-b415-61d12f5d8f81"
+            ],
+            "backgroundColor": {
+                "r": 216,
+                "g": 0,
+                "b": 115,
+                "a": 1
+            },
+            "show": true,
+            "isActivated": true,
+            "indexes": [],
+            "replStrategy": "SimpleStrategy",
+            "addToCqlScript": true,
+            "keyspaceIfNotExist": true,
+            "GUID": "4089732b-2fb8-4b06-937c-da848b749c6e"
+        },
+        {
+            "name": "avioes",
+            "type": "bucket",
+            "collectionIds": [
+                "2a45cdc5-ae00-4a1c-847c-8c2909a44ec8",
+                "d2373372-143b-428c-baad-2af5187f614c"
+            ],
+            "backgroundColor": {
+                "r": 0,
+                "g": 138,
+                "b": 0,
+                "a": 1
+            },
+            "show": true,
+            "isActivated": true,
+            "indexes": [],
+            "replStrategy": "SimpleStrategy",
+            "addToCqlScript": true,
+            "keyspaceIfNotExist": false,
+            "GUID": "b972abe7-d2e4-45c6-9f6e-a8c7ba2654af"
+        },
+        {
+            "name": "passageiros",
+            "type": "bucket",
+            "collectionIds": [
+                "6dd4e18b-952d-411c-8e43-576ed6cc66e6",
+                "b03ec0cb-81cf-46a6-830a-8db61f18c8d9"
+            ],
+            "backgroundColor": {
+                "r": 0,
+                "g": 188,
+                "b": 213,
+                "a": 1
+            },
+            "show": true,
+            "isActivated": true,
+            "indexes": [],
+            "replStrategy": "SimpleStrategy",
+            "addToCqlScript": true,
+            "keyspaceIfNotExist": false,
+            "GUID": "bac8be18-910a-44cf-9075-18ec173b2944"
+        }
+    ],
+    "views": [],
+    "relationships": [
+        {
+            "name": "localizada",
+            "relationshipType": "Foreign Key",
+            "parentField": [],
+            "parentCardinality": "0..n",
+            "childField": [],
+            "isActivated": true,
+            "childCardinality": "1",
+            "GUID": "b95fe31d-1bd1-4023-935c-758a2f5f1eb3",
+            "hackoladeMeta": {},
+            "parentCollection": "fc856b3f-5f76-408a-b7f6-ec56af438abf",
+            "childCollection": "fbfc7781-5802-4312-b415-61d12f5d8f81",
+            "hackoladeStyles": {
+                "GUID": "92d7e2b3-aa22-4f07-bd9b-4a83ca9ba5a4",
+                "autoPositioning": true,
+                "type": "Orthogonal",
+                "thickness": 2,
+                "color": "#79c4ff",
+                "dataType": "",
+                "shape": [
+                    {
+                        "x": 1553.5666666666664,
+                        "y": 1216.9333333333323
+                    },
+                    {
+                        "x": 1578.5666666666664,
+                        "y": 1216.9333333333323
+                    },
+                    {
+                        "x": 1578.5666666666664,
+                        "y": 1089.4333333333327
+                    },
+                    {
+                        "x": 1550.3999999999996,
+                        "y": 1089.4333333333327
+                    }
+                ],
+                "sides": [
+                    "right",
+                    "right"
+                ]
+            }
+        },
+        {
+            "name": "New Relationship",
+            "relationshipType": "",
+            "parentField": [],
+            "parentCardinality": "1",
+            "childField": [],
+            "isActivated": true,
+            "childCardinality": "0..n",
+            "GUID": "f2775e11-c623-4106-8a54-1a57d2f7958e",
+            "hackoladeMeta": {
+                "validationErrors": {
+                    "name": true
+                }
+            },
+            "parentCollection": "2a45cdc5-ae00-4a1c-847c-8c2909a44ec8",
+            "childCollection": "d2373372-143b-428c-baad-2af5187f614c",
+            "hackoladeStyles": {
+                "GUID": "888dea4f-3fe2-4808-87bb-b2caf0878a11",
+                "autoPositioning": true,
+                "type": "Orthogonal",
+                "thickness": 2,
+                "color": "#79c4ff",
+                "dataType": "",
+                "shape": [
+                    {
+                        "x": 1604.016140845406,
+                        "y": 1429.959822537092
+                    },
+                    {
+                        "x": 1604.016140845406,
+                        "y": 1404.959822537092
+                    },
+                    {
+                        "x": 1272.016140845406,
+                        "y": 1404.959822537092
+                    },
+                    {
+                        "x": 1272.016140845406,
+                        "y": 1447.959822537092
+                    }
+                ],
+                "sides": [
+                    "top",
+                    "top"
+                ]
+            }
+        },
+        {
+            "name": "New Relationship1",
+            "relationshipType": "",
+            "parentField": [],
+            "parentCardinality": "1",
+            "childField": [],
+            "isActivated": true,
+            "childCardinality": "0..n",
+            "GUID": "590aea54-02fe-41b8-8c61-cb862e381e6c",
+            "hackoladeMeta": {
+                "validationErrors": {
+                    "name": true
+                }
+            },
+            "parentCollection": "b03ec0cb-81cf-46a6-830a-8db61f18c8d9",
+            "childCollection": "6dd4e18b-952d-411c-8e43-576ed6cc66e6",
+            "hackoladeStyles": {
+                "GUID": "f5aae839-ec03-42f8-beec-3fff28bef667",
+                "autoPositioning": true,
+                "type": "Orthogonal",
+                "thickness": 2,
+                "color": "#79c4ff",
+                "dataType": "",
+                "shape": [
+                    {
+                        "x": 1579.2308619695887,
+                        "y": 1881.8355962436633
+                    },
+                    {
+                        "x": 1607.030813141464,
+                        "y": 1881.8355962436633
+                    },
+                    {
+                        "x": 1607.030813141464,
+                        "y": 1761.202311738456
+                    },
+                    {
+                        "x": 1582.030813141464,
+                        "y": 1761.202311738456
+                    }
+                ],
+                "sides": [
+                    "right",
+                    "right"
+                ]
+            }
+        }
+    ],
+    "users": [],
+    "diagramViews": [],
+    "idToNameHashTable": {
+        "4089732b-2fb8-4b06-937c-da848b749c6e": "companias_areas",
+        "fc856b3f-5f76-408a-b7f6-ec56af438abf": "compania_aerea_por_nome",
+        "e7f25007-37f7-45dc-8dc4-9c928e60618f": "airline_id",
+        "a0a98101-2c6c-443f-847f-e9a8c53cb90b": "iata",
+        "5930081c-61f6-4d6b-95e2-2d9b48405b2c": "airline_name",
+        "fbfc7781-5802-4312-b415-61d12f5d8f81": "compania_aerea_por_iata",
+        "b13842e5-b19b-4ceb-8984-9dd91e90cb1a": "iata",
+        "7a809f69-83d8-4e02-9a76-a8d39fcfa687": "name",
+        "59eecaec-f814-4357-93b9-807f44525542": "city",
+        "b95fe31d-1bd1-4023-935c-758a2f5f1eb3": "localizada",
+        "f2775e11-c623-4106-8a54-1a57d2f7958e": "New Relationship",
+        "590aea54-02fe-41b8-8c61-cb862e381e6c": "New Relationship1",
+        "b972abe7-d2e4-45c6-9f6e-a8c7ba2654af": "avioes",
+        "3dbddab6-cf36-4156-ad87-d20e5828c6e6": "capacity",
+        "49e22c9c-b0ea-4a04-b1e2-6df6cf073831": "airplane_id",
+        "07ffc197-b788-44df-b445-d87d35af0a6d": "airplane_type",
+        "2a45cdc5-ae00-4a1c-847c-8c2909a44ec8": "avioes_por_capacidade",
+        "776c8f2a-41c2-43b8-92e2-8cd7260f0956": "airplane_id",
+        "b04be194-7791-41fb-b8cd-522922e2cdee": "flight_no",
+        "73888616-c934-4f4b-9f62-bc174ffbffd5": "departure",
+        "f529863d-5636-49b6-8a89-00f57250da50": "arrival",
+        "03b6fbf2-c589-403a-94a4-c466ae6539db": "day_of_week",
+        "d2373372-143b-428c-baad-2af5187f614c": "voos_por_aviao_id_e_dia",
+        "bac8be18-910a-44cf-9075-18ec173b2944": "passageiros",
+        "de7f84a6-29e5-4422-bcc4-f1bcdfc4615e": "passenger_id",
+        "08ff4fc5-3630-4414-9ec2-093930dc45fd": "sex",
+        "ce74275e-bb19-40ec-97bf-4124c73a1aa0": "country",
+        "19c9abb5-efa5-488e-b16a-235bcae606a1": "seat_no",
+        "6dd4e18b-952d-411c-8e43-576ed6cc66e6": "detalhes_passageiros_por_id",
+        "7ab187cd-2e6a-4ded-b500-6ebdd18573ff": "lastname",
+        "d4c37282-9ba8-490e-a283-0ce330427339": "passenger_id",
+        "fb5920f3-23e8-4dfa-a3ce-aefe9f7b1472": "firstname",
+        "b03ec0cb-81cf-46a6-830a-8db61f18c8d9": "passageiros_por_sobrenome"
+    },
+    "definitions": {
+        "type": "definitions",
+        "properties": [],
+        "GUID": "fc7c80b1-7c90-4125-bdc6-67428e9d1dc2"
+    },
+    "polyglotDefinitions": {
+        "type": "polyglotDefinitions",
+        "properties": [],
+        "GUID": "3e2ed59f-b98e-449b-8719-2e7444046969"
+    },
+    "externalDefinitions": {
+        "type": "externalDefinitions",
+        "properties": [],
+        "GUID": "96d2e5bd-9355-4331-83f5-26fe1f1c1b03"
+    },
+    "sources": [],
+    "decorativeSymbols": [],
+    "dbVersion": "5.x",
+    "dbVendor": "Cassandra",
+    "appTarget": "CASSANDRA",
+    "creationTS": "2024-11-13T02:13:06.954Z",
+    "GUID": "ed5e5c00-aca2-4f48-a04a-0b89e5e71404",
+    "isLineageEnabled": false,
+    "hackoladeMeta": {
+        "validationErrors": {
+            "modelName": false
+        }
+    },
+    "lastModifTS": "2024-11-13T03:55:35.288Z",
+    "persistenceSchemaVersion": "7",
+    "isCreatedByPlugin": true,
+    "pluginInformation": {
+        "pluginName": "Cassandra",
+        "pluginVersion": "0.2.8",
+        "pluginEngineVersion": "1.0.0"
+    },
+    "applicationInformation": {
+        "version": "7.8.4"
+    },
+    "settings": {
+        "centralPane": {
+            "dbLevel": {
+                "erd": [
+                    {
+                        "GUID": "fc856b3f-5f76-408a-b7f6-ec56af438abf",
+                        "x": 1271.3999999999996,
+                        "y": 1045.9333333333327,
+                        "width": 279,
+                        "height": 87,
+                        "color": {}
+                    },
+                    {
+                        "GUID": "fbfc7781-5802-4312-b415-61d12f5d8f81",
+                        "x": 1272.5666666666664,
+                        "y": 1168.4333333333323,
+                        "width": 281,
+                        "height": 97,
+                        "color": {}
+                    },
+                    {
+                        "GUID": "2a45cdc5-ae00-4a1c-847c-8c2909a44ec8",
+                        "x": 1129.516140845406,
+                        "y": 1447.959822537092,
+                        "width": 285,
+                        "height": 87,
+                        "color": {}
+                    },
+                    {
+                        "GUID": "d2373372-143b-428c-baad-2af5187f614c",
+                        "x": 1463.516140845406,
+                        "y": 1429.959822537092,
+                        "width": 281,
+                        "height": 123,
+                        "color": {}
+                    },
+                    {
+                        "GUID": "6dd4e18b-952d-411c-8e43-576ed6cc66e6",
+                        "x": 1287.2308619695887,
+                        "y": 1830.3355962436633,
+                        "width": 292,
+                        "height": 103,
+                        "color": {}
+                    },
+                    {
+                        "GUID": "b03ec0cb-81cf-46a6-830a-8db61f18c8d9",
+                        "x": 1285.030813141464,
+                        "y": 1718.702311738456,
+                        "width": 297,
+                        "height": 85,
+                        "color": {}
+                    }
+                ],
+                "erdDefinitions": {
+                    "erd": [],
+                    "rootPath": [],
+                    "entities": [],
+                    "decorativeSymbols": []
+                },
+                "buckets": [
+                    {
+                        "x": 1231.3999999999996,
+                        "y": 1005.9333333333327,
+                        "GUID": "4089732b-2fb8-4b06-937c-da848b749c6e"
+                    },
+                    {
+                        "x": 1089.516140845406,
+                        "y": 1364.959822537092,
+                        "GUID": "b972abe7-d2e4-45c6-9f6e-a8c7ba2654af"
+                    },
+                    {
+                        "x": 1245.030813141464,
+                        "y": 1678.702311738456,
+                        "GUID": "bac8be18-910a-44cf-9075-18ec173b2944"
+                    }
+                ],
+                "collapsedNodes": [],
+                "activeRelationship": "",
+                "activeRelationshipFields": {
+                    "childField": [],
+                    "parentField": []
+                },
+                "selectedCollections": [],
+                "displayColorPicker": false,
+                "graphView": {
+                    "erd": [],
+                    "buckets": [],
+                    "decorativeSymbols": [],
+                    "forceLayout": true,
+                    "defaultLinkLength": 300
+                },
+                "diagramViews": [],
+                "decorativeSymbols": [],
+                "nestedCollectionsLayout": "horizontal",
+                "options": [
+                    {
+                        "autoWidth": false,
+                        "autoHeight": false,
+                        "GUID": "fbfc7781-5802-4312-b415-61d12f5d8f81"
+                    },
+                    {
+                        "autoWidth": false,
+                        "autoHeight": false,
+                        "GUID": "fc856b3f-5f76-408a-b7f6-ec56af438abf"
+                    },
+                    {
+                        "GUID": "2a45cdc5-ae00-4a1c-847c-8c2909a44ec8"
+                    },
+                    {
+                        "GUID": "d2373372-143b-428c-baad-2af5187f614c"
+                    },
+                    {
+                        "autoWidth": false,
+                        "autoHeight": false,
+                        "GUID": "6dd4e18b-952d-411c-8e43-576ed6cc66e6"
+                    },
+                    {
+                        "autoWidth": false,
+                        "autoHeight": false,
+                        "GUID": "b03ec0cb-81cf-46a6-830a-8db61f18c8d9"
+                    }
+                ],
+                "relationshipUpdateDisabled": false
+            },
+            "collectionLevel": {},
+            "changed": false
+        },
+        "dtDiagram": {
+            "collapsedNodes": [],
+            "shouldDistributeCollections": false
+        }
+    }
+}
