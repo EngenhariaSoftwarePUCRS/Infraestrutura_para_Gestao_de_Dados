@@ -1,6 +1,11 @@
 .env
 error_rows.log
 
+# Large dump files (event "minified")
+dumps/area
+dumps/artist
+dumps/event
+
 # https://github.com/metabrainz/musicbrainz-docker.git
 musicbrainz-docker
 mbdump.tar.bz2
