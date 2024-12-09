@@ -13,6 +13,12 @@ load_dotenv()
 # Default file prefix path
 file_prefix_path = os.path.join('dumps') # os.path.join('mbdump', 'mbdump')
 
+# Lock for thread synchronization
+lock = threading.Lock()
+
+# List of files removed (to remove just once)
+files_removed = []
+
 
 def get_connection():
     return psycopg2.connect(
@@ -24,11 +30,36 @@ def get_connection():
     )
 
 
+def write_sql_insert(table_name, query, rows, delete_file=True):
+    file_path = os.path.join('sql', f"Insert_{table_name}.sql")
+
+    with lock:
+        if delete_file and file_path not in files_removed:
+            if os.path.exists(file_path):
+                os.remove(file_path)
+                files_removed.append(file_path)
+
+        with open(file_path, 'a', encoding='utf-8') as f:
+            f.write(query)
+
+            formatted_rows = []
+            for row in rows:
+                # Format each row into SQL value syntax
+                formatted_row = ', '.join(
+                    [f"'{str(value).replace('\'', '\'\'')}'" if value is not None else 'NULL' for value in row]
+                )
+                formatted_rows.append(f"({formatted_row})")
+
+            f.write(',\n'.join(formatted_rows))
+            f.write(';\n')
+
+        print(f"SQL insert for {table_name} written to {file_path}")
+
+
 def import_csv_to_table(table_name, column_names, thread_count = 1):
     global file_prefix_path
     
     file_path = os.path.join(file_prefix_path, table_name)
-    lock = threading.Lock()
 
     def process_chunk(thread_id, rows):
         thread_conn = get_connection()
@@ -36,12 +67,14 @@ def import_csv_to_table(table_name, column_names, thread_count = 1):
         try:
             cursor = thread_conn.cursor()
 
-            query = f"INSERT INTO {table_name} ({', '.join(column_names)}) VALUES %s"
+            query = f"INSERT INTO {table_name} ({', '.join(column_names)}) VALUES"
 
             # Handle NULL values
             rows = [[None if value == '\\N' else value for value in row] for row in rows]
 
-            execute_values(cursor, query, rows)
+            write_sql_insert(table_name, f'{query}\n', rows)
+
+            execute_values(cursor, f'{query} %s', rows)
 
             thread_conn.commit()
         
