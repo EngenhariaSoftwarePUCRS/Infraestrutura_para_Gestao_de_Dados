@@ -8,15 +8,15 @@ SELECT * FROM instrument_type;
 
 SELECT * FROM gender;
 
-SELECT * FROM genre;
+SELECT * FROM genre LIMIT 10;
 
-SELECT * FROM area;
+SELECT * FROM area LIMIT 10;
 
-SELECT * FROM artist;
+SELECT * FROM artist LIMIT 10;
 
-SELECT * FROM event;
+SELECT * FROM event LIMIT 10;
 
-SELECT * FROM instrument;
+SELECT * FROM instrument LIMIT 10;
 
 SELECT COUNT(*) FROM area_type;
 SELECT COUNT(*) FROM artist_type;

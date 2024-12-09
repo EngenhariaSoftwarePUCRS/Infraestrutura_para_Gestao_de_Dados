@@ -1,39 +1,39 @@
 COPY area_type
-    FROM 'E:/Infraestrutura_para_Gestao_de_Dados/Trabalho03/mbdump/mbdump/area_type'
-    WITH (FORMAT csv, DELIMITER E'\t', NULL '', HEADER false);
-
-COPY area
-    FROM 'E:/Infraestrutura_para_Gestao_de_Dados/Trabalho03/mbdump/mbdump/area'
-    WITH (FORMAT csv, DELIMITER E'\t', NULL '', HEADER false);
-
-COPY artist
-    FROM 'E:/Infraestrutura_para_Gestao_de_Dados/Trabalho03/mbdump/mbdump/artist'
+    FROM 'mbdump/mbdump/area_type'
     WITH (FORMAT csv, DELIMITER E'\t', NULL '', HEADER false);
 
 COPY artist_type
-    FROM 'E:/Infraestrutura_para_Gestao_de_Dados/Trabalho03/mbdump/mbdump/artist_type'
+    FROM 'mbdump/mbdump/artist_type'
     WITH (FORMAT csv, DELIMITER E'\t', NULL '', HEADER false);
 
 COPY event_type
-    FROM 'E:/Infraestrutura_para_Gestao_de_Dados/Trabalho03/mbdump/mbdump/event_type'
-    WITH (FORMAT csv, DELIMITER E'\t', NULL '', HEADER false);
-
-COPY event
-    FROM 'E:/Infraestrutura_para_Gestao_de_Dados/Trabalho03/mbdump/mbdump/event'
-    WITH (FORMAT csv, DELIMITER E'\t', NULL '', HEADER false);
-
-COPY gender
-    FROM 'E:/Infraestrutura_para_Gestao_de_Dados/Trabalho03/mbdump/mbdump/gender'
-    WITH (FORMAT csv, DELIMITER E'\t', NULL '', HEADER false);
-
-COPY genre
-    FROM 'E:/Infraestrutura_para_Gestao_de_Dados/Trabalho03/mbdump/mbdump/genre'
+    FROM 'mbdump/mbdump/event_type'
     WITH (FORMAT csv, DELIMITER E'\t', NULL '', HEADER false);
 
 COPY instrument_type
-    FROM 'E:/Infraestrutura_para_Gestao_de_Dados/Trabalho03/mbdump/mbdump/instrument_type'
+    FROM 'mbdump/mbdump/instrument_type'
+    WITH (FORMAT csv, DELIMITER E'\t', NULL '', HEADER false);
+
+COPY gender
+    FROM 'mbdump/mbdump/gender'
+    WITH (FORMAT csv, DELIMITER E'\t', NULL '', HEADER false);
+
+COPY genre
+    FROM 'mbdump/mbdump/genre'
+    WITH (FORMAT csv, DELIMITER E'\t', NULL '', HEADER false);
+
+COPY area
+    FROM 'mbdump/mbdump/area'
+    WITH (FORMAT csv, DELIMITER E'\t', NULL '', HEADER false);
+
+COPY artist
+    FROM 'mbdump/mbdump/artist'
+    WITH (FORMAT csv, DELIMITER E'\t', NULL '', HEADER false);
+
+COPY event
+    FROM 'mbdump/mbdump/event'
     WITH (FORMAT csv, DELIMITER E'\t', NULL '', HEADER false);
 
 COPY instrument
-    FROM 'E:/Infraestrutura_para_Gestao_de_Dados/Trabalho03/mbdump/mbdump/instrument'
+    FROM 'mbdump/mbdump/instrument'
     WITH (FORMAT csv, DELIMITER E'\t', NULL '', HEADER false);
