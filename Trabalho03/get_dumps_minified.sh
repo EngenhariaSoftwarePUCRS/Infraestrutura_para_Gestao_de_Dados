@@ -38,6 +38,11 @@ tables=(
   "genre"
   "instrument_type"
   "instrument"
+  "link_type"
+  "link"
+  "l_artist_event"
+  "l_artist_genre"
+  "l_artist_instrument"
 )
 
 # Loop through each table and copy the first 1000 lines

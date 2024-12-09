@@ -64,3 +64,58 @@ ALTER TABLE instrument_type
    ADD CONSTRAINT instrument_type_fk_parent
    FOREIGN KEY (parent)
    REFERENCES instrument_type(id);
+
+ALTER TABLE link
+   ADD CONSTRAINT link_fk_link_type
+   FOREIGN KEY (link_type)
+   REFERENCES link_type(id);
+
+ALTER TABLE link_type
+   ADD CONSTRAINT link_type_fk_parent
+   FOREIGN KEY (parent)
+   REFERENCES link_type(id);
+
+ALTER TABLE l_artist_event
+   ADD CONSTRAINT l_artist_event_fk_link
+   FOREIGN KEY (link)
+   REFERENCES link(id);
+
+ALTER TABLE l_artist_event
+   ADD CONSTRAINT l_artist_event_fk_entity0
+   FOREIGN KEY (entity0)
+   REFERENCES artist(id);
+
+ALTER TABLE l_artist_event
+   ADD CONSTRAINT l_artist_event_fk_entity1
+   FOREIGN KEY (entity1)
+   REFERENCES event(id);
+
+ALTER TABLE l_artist_genre
+   ADD CONSTRAINT l_artist_genre_fk_link
+   FOREIGN KEY (link)
+   REFERENCES link(id);
+
+ALTER TABLE l_artist_genre
+   ADD CONSTRAINT l_artist_genre_fk_entity0
+   FOREIGN KEY (entity0)
+   REFERENCES artist(id);
+
+ALTER TABLE l_artist_genre
+   ADD CONSTRAINT l_artist_genre_fk_entity1
+   FOREIGN KEY (entity1)
+   REFERENCES genre(id);
+
+ALTER TABLE l_artist_instrument
+   ADD CONSTRAINT l_artist_instrument_fk_link
+   FOREIGN KEY (link)
+   REFERENCES link(id);
+
+ALTER TABLE l_artist_instrument
+   ADD CONSTRAINT l_artist_instrument_fk_entity0
+   FOREIGN KEY (entity0)
+   REFERENCES artist(id);
+
+ALTER TABLE l_artist_instrument
+   ADD CONSTRAINT l_artist_instrument_fk_entity1
+   FOREIGN KEY (entity1)
+   REFERENCES instrument(id);

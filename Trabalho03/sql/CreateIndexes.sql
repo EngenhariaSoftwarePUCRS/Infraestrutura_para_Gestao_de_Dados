@@ -33,6 +33,18 @@ CREATE INDEX event_idx_name ON event (name);
 CREATE UNIQUE INDEX instrument_idx_gid ON instrument (gid);
 CREATE INDEX instrument_idx_name ON instrument (name);
 
+CREATE UNIQUE INDEX link_type_idx_gid ON link_type (gid);
+
+CREATE INDEX link_idx_type_attr ON link (link_type, attribute_count);
+
+CREATE UNIQUE INDEX l_artist_event_idx_uniq ON l_artist_event (entity0, entity1, link, link_order);
+CREATE UNIQUE INDEX l_artist_genre_idx_uniq ON l_artist_genre (entity0, entity1, link, link_order);
+CREATE UNIQUE INDEX l_artist_instrument_idx_uniq ON l_artist_instrument (entity0, entity1, link, link_order);
+
+CREATE INDEX l_artist_event_idx_entity1 ON l_artist_event (entity1);
+CREATE INDEX l_artist_genre_idx_entity1 ON l_artist_genre (entity1);
+CREATE INDEX l_artist_instrument_idx_entity1 ON l_artist_instrument (entity1);
+
 COMMIT;
 
 -- vi: set ts=4 sw=4 et :
