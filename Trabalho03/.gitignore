@@ -1,2 +1,6 @@
+.env
+
 # https://github.com/metabrainz/musicbrainz-docker.git
 musicbrainz-docker
+mbdump.tar.bz2
+mbdump
