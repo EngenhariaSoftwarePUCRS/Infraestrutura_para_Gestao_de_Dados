@@ -1,19 +1,19 @@
-DELETE FROM area_type;
+-- DELETE FROM instrument;
 
-DELETE FROM area;
+-- DELETE FROM event;
 
-DELETE FROM artist;
+-- DELETE FROM artist;
 
-DELETE FROM artist_type;
-
-DELETE FROM event_type;
-
-DELETE FROM event;
-
-DELETE FROM gender;
+-- DELETE FROM area;
 
 DELETE FROM genre;
 
-DELETE FROM instrument;
+DELETE FROM gender;
 
 DELETE FROM instrument_type;
+
+DELETE FROM event_type;
+
+DELETE FROM artist_type;
+
+DELETE FROM area_type;
