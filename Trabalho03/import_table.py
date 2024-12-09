@@ -2,59 +2,84 @@ import csv
 import os
 import psycopg2
 import sys
+import threading
 from dotenv import load_dotenv
+from psycopg2.extras import execute_values
+from queue import Queue
 
 # Load environment variables from .env file
 load_dotenv()
 
 # Default file prefix path
-file_prefix_path = os.path.join('mbdump', 'mbdump')
+file_prefix_path = os.path.join('dumps') # os.path.join('mbdump', 'mbdump')
 
-def import_csv_to_table(conn, table_name, column_names):
+
+def get_connection():
+    return psycopg2.connect(
+        user=os.getenv('DB_USER'),
+        password=os.getenv('DB_PASSWORD'),
+        host=os.getenv('DB_HOST'),
+        port=os.getenv('DB_PORT'),
+        database=os.getenv('DB_NAME')
+    )
+
+
+def import_csv_to_table(table_name, column_names, thread_count = 1):
     global file_prefix_path
-    if conn is None:
-        raise Exception("Database connection is not established")
     
     file_path = os.path.join(file_prefix_path, table_name)
-    inserted_rows = 0
-    skipped_rows = 0
+    lock = threading.Lock()
+
+    def process_chunk(thread_id, rows):
+        thread_conn = get_connection()
+
+        try:
+            cursor = thread_conn.cursor()
+
+            query = f"INSERT INTO {table_name} ({', '.join(column_names)}) VALUES %s"
+
+            # Handle NULL values
+            rows = [[None if value == '\\N' else value for value in row] for row in rows]
+
+            execute_values(cursor, query, rows)
+
+            thread_conn.commit()
+        
+            with lock:
+                print(f"Thread {thread_id} completed: {len(rows)} rows processed")
+
+        except Exception as e:
+            with lock:
+                print(f"Thread {thread_id} encountered an error: {str(e)}")
+            thread_conn.rollback()
+
+        finally:
+            cursor.close()
 
     try:
         with open(file_path, 'r', encoding='utf-8', errors='replace') as f:
-            reader = csv.reader(f, delimiter='\t')
-            
-            total_lines = sum(1 for _ in open(file_path, 'r', encoding='utf-8', errors='replace'))
-            # Reset file pointer
-            f.seek(0)
+            reader = list(csv.reader(f, delimiter='\t'))
+        
+        total_lines = len(reader)
+        print(f"\nPreparing to insert {total_lines} rows into {table_name} table using {thread_count} threads")
 
-            query = f"INSERT INTO {table_name} ({', '.join(column_names)}) VALUES ({', '.join(['%s'] * len(column_names))})"
-            cursor = conn.cursor()
+        chunk_size = (total_lines + thread_count - 1) // thread_count
+        threads = []
 
-            print(f"Preparing to insert {total_lines} rows into {table_name} table using query: {query}")
+        for i in range(thread_count):
+            start_index = i * chunk_size
+            end_index = min((i + 1) * chunk_size, total_lines)
+            chunk = reader[start_index:end_index]
+            thread = threading.Thread(target=process_chunk, args=(i, chunk))
+            threads.append(thread)
+            thread.start()
 
-            for row in reader:
-                try:
-                    # Handle NULL values
-                    row = [None if value == '\\N' else value for value in row]
-                    cursor.execute(query, row)
-                    inserted_rows += 1
-                except Exception as row_error:
-                    print(f"\nError on line {reader.line_num}: {str(row_error)}")
-                    with open('error_rows.log', 'a', encoding='utf-8') as error_log:
-                        error_log.write(f"Error on line {reader.line_num}: {row}\n")
-                    skipped_rows += 1
-                    
-                print(f"\r{reader.line_num}/{total_lines} ({(reader.line_num/total_lines)*100:.2f}%)", end='')
-
-        conn.commit()
-        print(f"\n\tInserted {inserted_rows} rows into {table_name} successfully, skipped {skipped_rows} rows")
+        # Wait for all threads to finish
+        for thread in threads:
+            thread.join()
 
     except Exception as e:
         print(f"Error: {str(e)}")
-        conn.rollback()
-
-    finally:
-        if cursor: cursor.close()
 
 
 def main():
@@ -68,16 +93,28 @@ def main():
         file_prefix_path = sys.argv[1]
     
     try:
-        conn = psycopg2.connect(
-            user=os.getenv('DB_USER'),
-            password=os.getenv('DB_PASSWORD'),
-            host=os.getenv('DB_HOST'),
-            port=os.getenv('DB_PORT'),
-            database=os.getenv('DB_NAME')
-        )
-
+        # Establish database connection
+        conn = get_connection()
+        if conn is None:
+            raise Exception("Database connection is not established")
+        
         column_names_area_type = ["id", "name", "parent", "child_order", "description", "gid"]
-        import_csv_to_table(conn, 'area_type', column_names_area_type)
+        import_csv_to_table('area_type', column_names_area_type)
+        
+        column_names_artist_type = ["id", "name", "parent", "child_order", "description", "gid"]
+        import_csv_to_table('artist_type', column_names_artist_type)
+        
+        column_names_event_type = ["id", "name", "parent", "child_order", "description", "gid"]
+        import_csv_to_table('event_type', column_names_event_type)
+        
+        column_names_instrument_type = ["id", "name", "parent", "child_order", "description", "gid"]
+        import_csv_to_table('instrument_type', column_names_instrument_type)
+        
+        column_names_gender = ["id", "name", "parent", "child_order", "description", "gid"]
+        import_csv_to_table('gender', column_names_gender)
+        
+        column_names_genre = ["id", "gid", "name", "comment", "edits_pending", "last_updated"]
+        import_csv_to_table('genre', column_names_genre, 4)
         
         column_names_area = [
             "id", "gid", "name", "type", "edits_pending", "last_updated",
@@ -85,7 +122,7 @@ def main():
             "end_date_year", "end_date_month", "end_date_day",
             "ended", "comment"
         ]
-        import_csv_to_table(conn, 'area', column_names_area)
+        import_csv_to_table('area', column_names_area, 6)
         
         column_names_artist = [
             "id", "gid", "name", "sort_name",
@@ -94,13 +131,7 @@ def main():
             "type", "area", "gender", "comment", "edits_pending",
             "last_updated", "ended", "begin_area", "end_area"
         ]
-        import_csv_to_table(conn, 'artist', column_names_artist)
-        
-        column_names_artist_type = ["id", "name", "parent", "child_order", "description", "gid"]
-        import_csv_to_table(conn, 'artist_type', column_names_artist_type)
-        
-        column_names_event_type = ["id", "name", "parent", "child_order", "description", "gid"]
-        import_csv_to_table(conn, 'event_type', column_names_event_type)
+        import_csv_to_table('artist', column_names_artist, 12)
         
         column_names_event = [
             "id", "gid", "name",
@@ -109,29 +140,21 @@ def main():
             "time", "type", "cancelled", "setlist",
             "comment", "edits_pending", "last_updated", "ended"
         ]
-        import_csv_to_table(conn, 'event', column_names_event)
-        
-        column_names_gender = ["id", "name", "parent", "child_order", "description", "gid"]
-        import_csv_to_table(conn, 'gender', column_names_gender)
-        
-        column_names_genre = ["id", "gid", "name", "comment", "edits_pending", "last_updated"]
-        import_csv_to_table(conn, 'genre', column_names_genre)
-        
-        column_names_instrument_type = ["id", "name", "parent", "child_order", "description", "gid"]
-        import_csv_to_table(conn, 'instrument_type', column_names_instrument_type)
+        import_csv_to_table('event', column_names_event, 8)
         
         column_names_instrument = [
             "id", "gid", "name", "type",
             "edits_pending", "last_updated", "comment", "description"
         ]
-        import_csv_to_table(conn, 'instrument', column_names_instrument)
+        import_csv_to_table('instrument', column_names_instrument, 2)
 
     except Exception as e:
         print(f"Error: {str(e)}")
 
     finally:
         # Close the database connection
-        conn.close()
+        if conn is not None:
+            conn.close()
 
 
 if __name__ == '__main__':

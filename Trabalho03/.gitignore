@@ -1,4 +1,5 @@
 .env
+error_rows.log
 
 # https://github.com/metabrainz/musicbrainz-docker.git
 musicbrainz-docker
