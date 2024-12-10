@@ -14,9 +14,26 @@ SELECT * FROM area LIMIT 10;
 
 SELECT * FROM artist LIMIT 10;
 
+SELECT * FROM artist
+WHERE (
+    comment LIKE '%"%'
+    OR name LIKE '%"%'
+    OR sort_name LIKE '%"%'
+);
+
 SELECT * FROM event LIMIT 10;
 
 SELECT * FROM instrument LIMIT 10;
+
+SELECT * FROM link_type LIMIT 10;
+
+SELECT * FROM link LIMIT 10;
+
+SELECT * FROM l_artist_event LIMIT 10;
+
+SELECT * FROM l_artist_genre LIMIT 10;
+
+SELECT * FROM l_artist_instrument LIMIT 10;
 
 SELECT COUNT(*) FROM area_type;
 SELECT COUNT(*) FROM artist_type;
@@ -28,3 +45,8 @@ SELECT COUNT(*) FROM area;
 SELECT COUNT(*) FROM artist;
 SELECT COUNT(*) FROM event;
 SELECT COUNT(*) FROM instrument;
+SELECT COUNT(*) FROM link_type;
+SELECT COUNT(*) FROM link;
+SELECT COUNT(*) FROM l_artist_event;
+SELECT COUNT(*) FROM l_artist_genre;
+SELECT COUNT(*) FROM l_artist_instrument;

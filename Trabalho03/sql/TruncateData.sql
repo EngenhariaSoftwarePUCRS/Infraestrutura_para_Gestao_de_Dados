@@ -1,10 +1,25 @@
--- DELETE FROM instrument;
+DELETE FROM l_artist_instrument;
 
--- DELETE FROM event;
+DELETE FROM l_artist_genre;
 
--- DELETE FROM artist;
+DELETE FROM l_artist_event;
 
--- DELETE FROM area;
+DELETE FROM link;
+
+DELETE FROM link_type;
+
+DELETE FROM instrument;
+
+DELETE FROM event;
+
+DELETE FROM artist
+WHERE (
+    comment LIKE '%"%'
+    OR name LIKE '%"%'
+    OR sort_name LIKE '%"%'
+);
+
+DELETE FROM area;
 
 DELETE FROM genre;
 
