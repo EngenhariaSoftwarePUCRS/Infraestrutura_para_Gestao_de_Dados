@@ -128,3 +128,21 @@ Segue uma tabela com a quantidade esperada de linhas em cada tabela do banco de 
 | artist | >=119500 |
 | event | 91440 |
 | instrument | 1048 |
+
+### Segunda fonte de dados
+
+[Billboard - The Hot 100 Songs](https://www.kaggle.com/datasets/dhruvildave/billboard-the-hot-100-songs)
+
+This dataset's diagram is available at:
+
+[Billboard - The Hot 100 Songs](./images/NonRelationalDiagram.pdf)
+
+#### Elaboração do script para criação e inserção do banco de dados não relacional
+
+O script para criação do banco de dados não relacional está disponível em [nosql_billboard_create.sh](./nosql_billboard_create.sh).
+
+Para executar o script, basta rodar o comando abaixo:
+
+```bash
+./nosql_billboard_create.sh
+```
