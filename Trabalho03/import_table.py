@@ -21,13 +21,21 @@ files_removed = []
 
 
 def get_connection():
-    return psycopg2.connect(
-        user=os.getenv('DB_USER'),
-        password=os.getenv('DB_PASSWORD'),
-        host=os.getenv('DB_HOST'),
-        port=os.getenv('DB_PORT'),
-        database=os.getenv('DB_NAME')
-    )
+    try:
+        return psycopg2.connect(
+            user=os.getenv('DB_USER'),
+            password=os.getenv('DB_PASSWORD'),
+            host=os.getenv('DB_HOST'),
+            port=os.getenv('DB_PORT'),
+            database=os.getenv('DB_NAME')
+        )
+    
+    except Exception as e:
+        print(f"Error connecting to database: {str(e)}")
+        return None
+
+# Establish database connection
+conn = get_connection()
 
 
 def write_sql_insert(table_name, query, rows, delete_file=True):
@@ -39,25 +47,30 @@ def write_sql_insert(table_name, query, rows, delete_file=True):
                 os.remove(file_path)
                 files_removed.append(file_path)
 
-        with open(file_path, 'a', encoding='utf-8') as f:
-            f.write(query)
+        try:
+            with open(file_path, 'a', encoding='utf-8') as f:
+                f.write(query)
 
-            formatted_rows = []
-            for row in rows:
-                # Format each row into SQL value syntax
-                formatted_row = ', '.join(
-                    [f"'{str(value).replace('\'', '\'\'')}'" if value is not None else 'NULL' for value in row]
-                )
-                formatted_rows.append(f"({formatted_row})")
+                formatted_rows = []
+                for row in rows:
+                    # Format each row into SQL value syntax
+                    remove_quotes = lambda x: x.replace('\'', '').replace('\'\'', '').replace('"', '')
+                    formatted_row = ', '.join(
+                        [f"'{remove_quotes(str(value))}'" if value is not None else 'NULL' for value in row]
+                    )
+                    formatted_rows.append(f"({formatted_row})")
 
-            f.write(',\n'.join(formatted_rows))
-            f.write(';\n')
+                f.write(',\n'.join(formatted_rows))
+                f.write(';\n')
 
-        print(f"SQL insert for {table_name} written to {file_path}")
+            print(f"SQL insert for {table_name} written to {file_path}")
+
+        except Exception as e:
+            print(f"Error writing SQL insert for {table_name}: {str(e)}")
 
 
-def import_csv_to_table(table_name, column_names, thread_count = 1):
-    global file_prefix_path
+def import_csv_to_table(table_name, column_names, thread_count = 1, parent_id_index = None, sorter = None):
+    global conn, file_prefix_path
     
     file_path = os.path.join(file_prefix_path, table_name)
 
@@ -65,6 +78,9 @@ def import_csv_to_table(table_name, column_names, thread_count = 1):
         thread_conn = get_connection()
 
         try:
+            success_count = 0
+            error_count = 0
+
             cursor = thread_conn.cursor()
 
             query = f"INSERT INTO {table_name} ({', '.join(column_names)}) VALUES"
@@ -74,16 +90,62 @@ def import_csv_to_table(table_name, column_names, thread_count = 1):
 
             write_sql_insert(table_name, f'{query}\n', rows)
 
-            execute_values(cursor, f'{query} %s', rows)
-
-            thread_conn.commit()
+            try:
+                execute_values(cursor, f'{query} %s', rows)
+                thread_conn.commit()
+                success_count = len(rows)
+            
+            except Exception as e:
+                with lock:
+                    print(f"[{thread_id}] encountered an error while inserting: {str(e)}. Retrying.")
+                for row in rows:
+                    try:
+                        execute_values(cursor, f'{query} %s', [row])
+                        thread_conn.commit()
+                        with lock:
+                            success_count += 1
+                        print(f"\r[{thread_id}] Successful insertions: {success_count}")
+                    except Exception as e:
+                        with lock:
+                            print(f"[{thread_id}] encountered an error while inserting: {str(e)}")
+                        # Get parent id from the row
+                        if parent_id_index:
+                            parent_id = row[parent_id_index]
+                            print(f"\nPossible failure for ppid: {parent_id}, {e}")
+                            # Look for the parent id in the rows
+                            if parent_id is not None:
+                                parent_row = next((r for r in rows if r[0] == parent_id), None)
+                                print(f"[{thread_id}] Parent row: {'found' if parent_row else 'not found'}")
+                                # If parent row is found, insert it first
+                                if parent_row is not None:
+                                    try:
+                                        execute_values(cursor, f'{query} %s', [parent_row])
+                                        thread_conn.commit()
+                                        with lock:
+                                            success_count += 1
+                                    except Exception as e:
+                                        with lock:
+                                            error_count += 1
+                                # If parent row is not found, insert the row with NULL parent
+                                else:
+                                    row[1] = None
+                                    try:
+                                        execute_values(cursor, f'{query} %s', [row])
+                                        thread_conn.commit()
+                                        with lock:
+                                            success_count += 1
+                                    except Exception as e:
+                                        with lock:
+                                            error_count += 1
+                        
+                        thread_conn.rollback()
         
             with lock:
-                print(f"Thread {thread_id} completed: {len(rows)} rows processed")
+                print(f"[{thread_id}] completed: {success_count} rows inserted, {error_count} rows failed")
 
         except Exception as e:
             with lock:
-                print(f"Thread {thread_id} encountered an error: {str(e)}")
+                print(f"[{thread_id}] encountered an error: {str(e)}")
             thread_conn.rollback()
 
         finally:
@@ -92,6 +154,9 @@ def import_csv_to_table(table_name, column_names, thread_count = 1):
     try:
         with open(file_path, 'r', encoding='utf-8', errors='replace') as f:
             reader = list(csv.reader(f, delimiter='\t'))
+        
+        if sorter is not None:
+            reader.sort(key=sorter)
         
         total_lines = len(reader)
         print(f"\nPreparing to insert {total_lines} rows into {table_name} table using {thread_count} threads")
@@ -180,6 +245,43 @@ def main():
             "edits_pending", "last_updated", "comment", "description"
         ]
         import_csv_to_table('instrument', column_names_instrument, 2)
+
+        column_names_link_type = [
+            "id", "parent", "child_order", "gid", "entity_type0", 
+            "entity_type1", "name", "description", "link_phrase", 
+            "reverse_link_phrase", "long_link_phrase", "last_updated", 
+            "is_deprecated", "has_dates", "entity0_cardinality", 
+            "entity1_cardinality"
+        ]
+        import_csv_to_table('link_type', column_names_link_type, 1, parent_id_index=1)
+
+        column_names_link = [
+            "id", "link_type", "begin_date_year", "begin_date_month", 
+            "begin_date_day", "end_date_year", "end_date_month", 
+            "end_date_day", "attribute_count", "created", "ended"
+        ]
+        import_csv_to_table('link', column_names_link, 12)
+
+        column_names_l_artist_event = [
+            "id", "link", "entity0", "entity1", "edits_pending", 
+            "last_updated", "link_order", "entity0_credit", 
+            "entity1_credit"
+        ]
+        import_csv_to_table('l_artist_event', column_names_l_artist_event, 8)
+
+        column_names_l_artist_genre = [
+            "id", "link", "entity0", "entity1", "edits_pending", 
+            "last_updated", "link_order", "entity0_credit", 
+            "entity1_credit"
+        ]
+        import_csv_to_table('l_artist_genre', column_names_l_artist_genre, 2)
+
+        column_names_l_artist_instrument = [
+            "id", "link", "entity0", "entity1", "edits_pending", 
+            "last_updated", "link_order", "entity0_credit", 
+            "entity1_credit"
+        ]
+        import_csv_to_table('l_artist_instrument', column_names_l_artist_instrument, 2)
 
     except Exception as e:
         print(f"Error: {str(e)}")
