@@ -139,10 +139,31 @@ This dataset's diagram is available at:
 
 #### Elaboração do script para criação e inserção do banco de dados não relacional
 
-O script para criação do banco de dados não relacional está disponível em [nosql_billboard_create.sh](./nosql_billboard_create.sh).
+O script para criação do banco de dados não relacional está disponível em [nosql_billboard_create_import.sh](./nosql_billboard_create_import.sh).
 
 Para executar o script, basta rodar o comando abaixo:
 
 ```bash
-./nosql_billboard_create.sh
+./nosql_billboard_create_import.sh
 ```
+
+## T3 | Etapa 2 | Gestão de dados no banco relacional e não relacional
+
+Foram criados os seguintes recursos no Azure:
+
+![Resources](./images/resources.png)
+
+Através do Azure Data Studio, foi possível conectar aos bancos de dados e executar os scripts de criação das tabelas, inserção dos dados e validação dos dados inseridos.
+
+## T3 | Etapa 3 | Gestão do Data Lake e Consultas
+
+No Azure Synapse Analytics, foi possível criar um Data Lake e realizar consultas SQL para analisar os dados.
+
+As consultas SQL utilizadas estão disponíveis nos arquivos `Query$.sql` na pasta [sql](./sql), ou então no próprio Azure Synapse Analytics para serem executados.
+
+## Integrantes
+
+- Arthur Santos
+- Felipe Freitas
+- Matheus Berwaldt
+- Pedro Guimarães
