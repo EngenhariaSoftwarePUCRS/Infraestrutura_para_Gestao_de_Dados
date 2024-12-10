@@ -67,6 +67,12 @@ Instruments are devices created or adapted to make musical sounds. We also list 
 
 ---
 
+Diagrama relacional do grupo adaptado:
+
+![Relational Diagram](./images/RelationalDiagram.jpg)
+
+---
+
 #### Elaboração do script SQL-DDL para criação das tabelas
 
 Todos os scripts SQL-DDL utilizados estão disponíveis na pasta [SQL](./sql).
@@ -112,6 +118,10 @@ python import_table.py
 
 Pronto! Agora você já tem os arquivos `Insert_*.sql` disponíveis na pasta [sql](./sql) e os dados já devem estar disponíveis no seu banco de dados.
 
+É importante remover todos os campos que possuem `"` aspas, pois o DataLake tem problemas com este caracter no meio dos dados.
+
+Para isso, existe uma linha no arquivo [TruncateData.sql](./sql/TruncateData.sql) que remove todos os campos que possuem aspas duplas. Procure e execute _apenas esta linha_ após a inserção dos dados no banco de dados.
+
 Para validar a inserção dos dados, criamos um script [SelectAll.sql](./sql/SelectAll.sql) que executa um `SELECT *` em todas as tabelas do banco de dados.
 
 Segue uma tabela com a quantidade esperada de linhas em cada tabela do banco de dados:
@@ -128,6 +138,11 @@ Segue uma tabela com a quantidade esperada de linhas em cada tabela do banco de 
 | artist | >=119500 |
 | event | 91440 |
 | instrument | 1048 |
+| link_type | 463 |
+| link | 53982 |
+| l_artist_event | 2115 |
+| l_artist_genre | 0 |
+| l_artist_instrument | 0 |
 
 ### Segunda fonte de dados
 
@@ -159,7 +174,7 @@ Através do Azure Data Studio, foi possível conectar aos bancos de dados e exec
 
 No Azure Synapse Analytics, foi possível criar um Data Lake e realizar consultas SQL para analisar os dados.
 
-As consultas SQL utilizadas estão disponíveis nos arquivos `Query$.sql` na pasta [sql](./sql), ou então no próprio Azure Synapse Analytics para serem executados.
+As consultas SQL utilizadas estão disponíveis no próprio Azure Synapse Analytics para serem executados.
 
 ## Integrantes
 
