@@ -1,38 +1,17 @@
 SELECT * FROM area_type;
-
 SELECT * FROM artist_type;
-
 SELECT * FROM event_type;
-
 SELECT * FROM instrument_type;
-
 SELECT * FROM gender;
-
 SELECT * FROM genre LIMIT 10;
-
 SELECT * FROM area LIMIT 10;
-
 SELECT * FROM artist LIMIT 10;
-
-SELECT * FROM artist
-WHERE (
-    comment LIKE '%"%'
-    OR name LIKE '%"%'
-    OR sort_name LIKE '%"%'
-);
-
 SELECT * FROM event LIMIT 10;
-
 SELECT * FROM instrument LIMIT 10;
-
 SELECT * FROM link_type LIMIT 10;
-
 SELECT * FROM link LIMIT 10;
-
 SELECT * FROM l_artist_event LIMIT 10;
-
 SELECT * FROM l_artist_genre LIMIT 10;
-
 SELECT * FROM l_artist_instrument LIMIT 10;
 
 SELECT COUNT(*) FROM area_type;
